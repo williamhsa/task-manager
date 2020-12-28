@@ -14,9 +14,27 @@ MongoClient.connect(connectionURL, { useNewUrlParser: true, useUnifiedTopology: 
   console.log('Connected correctly!')
   const db = client.db(databaseName)
 
-  db.collection('users').insertOne({
+  /*db.collection('users').insertOne({
     name: 'William',
     age: 28,
-  })
+  }, (error, result) => { // esse calback d0 collection sera chamado assim que essa operacao for concluida. result.ops é basicamente a unica propriedades que vamos usar que contem todos os documentos que foram inseridos.
 
+    if (error) return console.log('Unable to insert user!')
+
+    console.log(result.ops);
+  })*/
+
+  db.collection('users').insertMany([
+    {
+      name: 'Isa',
+      age: 26
+    },
+    {
+      name: 'Tupa',
+      age: 2
+    }
+  ], (error, result) => {
+    if (error) return console.log('Unable to insert documents!')
+    console.log(result.ops)
+  })
 })
